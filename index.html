@@ -14,11 +14,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
     }
     header {
-      margin: 1rem 0 0.5rem;
       text-align: center;
+      margin: 1rem 0 0.5rem;
     }
     header h1 {
       font-size: 2.2rem;
@@ -26,19 +25,36 @@
     header p {
       font-size: 1.1rem;
       color: #ccc;
-      margin-top: 0.25rem;
       font-style: italic;
     }
+
+    #game-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+
+    #left-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     #board {
       display: grid;
       grid-template-rows: repeat(6, 1fr);
       gap: 8px;
       margin: 10px 0 20px;
     }
+
     .row {
       display: flex;
       gap: 8px;
     }
+
     .tile {
       width: 60px;
       height: 60px;
@@ -52,10 +68,12 @@
       font-size: 2rem;
       font-weight: 600;
     }
+
     .tile.correct { background-color: #538d4e; border-color: #538d4e; }
     .tile.present { background-color: #b59f3b; border-color: #b59f3b; }
     .tile.absent  { background-color: #3a3a3c; border-color: #3a3a3c; }
     .tile.vowel   { background-color: #2d77b3; border-color: #2d77b3; }
+
     #keyboard {
       display: flex;
       flex-direction: column;
@@ -63,12 +81,15 @@
       gap: 6px;
       margin-bottom: 10px;
     }
+
     .keyboard-row {
       display: flex;
       gap: 6px;
     }
+
     .keyboard-row.second { margin-left: 20px; }
     .keyboard-row.third  { margin-left: 40px; }
+
     .key {
       padding: 12px 16px;
       background: #2d2d2d;
@@ -79,19 +100,65 @@
       min-width: 40px;
       cursor: pointer;
     }
+
     .key.wide { min-width: 70px; }
     .key:hover { background: #444; }
+
     #message {
       font-size: 1.1rem;
       margin-bottom: 1rem;
       text-align: center;
       min-height: 24px;
     }
+
     #footer {
       font-size: 0.9rem;
       color: #888;
-      margin-bottom: 20px;
+      margin-top: 20px;
       text-align: center;
+    }
+
+    #instructions {
+      background-color: #1a1a1a;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 300px;
+      border: 1px solid #444;
+    }
+
+    #instructions h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .legend {
+      margin-top: 10px;
+    }
+
+    .legend-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 8px 0;
+    }
+
+    .legend-color {
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+      border-radius: 6px;
+    }
+
+    .green  { background-color: #538d4e; }
+    .yellow { background-color: #b59f3b; }
+    .blue   { background-color: #2d77b3; }
+    .gray   { background-color: #3a3a3c; }
+
+    @media (max-width: 768px) {
+      #game-container {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
@@ -100,26 +167,40 @@
     <h1>Boatordle</h1>
     <p><em>Boatordle: The ultimate word game for sea brains.</em></p>
   </header>
-  <div id="board"></div>
-  <div id="keyboard"></div>
-  <div id="message"></div>
-  <div id="footer">Designed by Country.</div>
+
+  <div id="game-container">
+    <div id="left-side">
+      <div id="board"></div>
+      <div id="keyboard"></div>
+      <div id="message"></div>
+      <div id="footer">Designed by Country.</div>
+    </div>
+
+    <div id="instructions">
+      <h3>How to Play</h3>
+      <p>Guess the 5-letter boat word in 6 tries.</p>
+      <p>Each guess must be a valid word. The color of the tiles will change to show how close your guess was:</p>
+      <div class="legend">
+        <div class="legend-box"><span class="legend-color green"></span> Correct letter in the correct spot</div>
+        <div class="legend-box"><span class="legend-color yellow"></span> Letter is in the word but in the wrong spot</div>
+        <div class="legend-box"><span class="legend-color blue"></span> Letter is a vowel but not in the word</div>
+        <div class="legend-box"><span class="legend-color gray"></span> Letter is not in the word</div>
+      </div>
+    </div>
+  </div>
 
   <script>
     const vowels = ['a', 'e', 'i', 'o', 'u'];
-    const words = ["angle", "barks", "basin", "beach", "beams", "berth", "bilge", "biner", "boats", "bowls",
-      "brigs", "buoys", "bunks", "canoe", "cargo", "chain", "chart", "cleat", "coast", "crane",
-      "creek", "crews", "docks", "draft", "fends", "ferry", "flare", "fleet", "float", "flood",
-      "found", "gates", "glide", "grids", "gulls", "hatch", "hauls", "helms", "hoist", "hulls",
-      "kayak", "keels", "knots", "latch", "locks", "mains", "marsh", "masts", "moors", "motor",
-      "naval", "ocean", "pilot", "plank", "ponto", "radar", "reefs", "riggs", "ropes", "sails",
-      "scull", "seats", "shaft", "shank", "shoal", "shove", "skiff", "sloop", "solar", "sound",
-      "spins", "speed", "stern", "stirs", "storm", "swept", "swash", "tanks", "tides", "towel",
-      "traps", "vapor", "vessel", "watch", "water", "waves", "winds", "yacht"];
+    const words = ["angle","barks","basin","beach","beams","berth","bilge","biner","boats","bowls","brigs","buoys",
+      "bunks","canoe","cargo","chain","chart","cleat","coast","crane","creek","crews","docks","draft",
+      "fends","ferry","flare","fleet","float","flood","found","gates","glide","grids","gulls","hatch",
+      "hauls","helms","hoist","hulls","kayak","keels","knots","latch","locks","mains","marsh","masts",
+      "moors","motor","naval","ocean","pilot","plank","ponto","radar","reefs","riggs","ropes","sails",
+      "scull","seats","shaft","shank","shoal","shove","skiff","sloop","solar","sound","spins","speed",
+      "stern","stirs","storm","swept","swash","tanks","tides","towel","traps","vapor","vessel","watch",
+      "water","waves","winds","yacht"];
 
     const word = words[Math.floor(Math.random() * words.length)];
-    console.log("Today's word is:", word);
-
     const board = document.getElementById("board");
     const keyboard = document.getElementById("keyboard");
     const message = document.getElementById("message");

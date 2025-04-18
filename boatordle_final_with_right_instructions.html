@@ -101,7 +101,7 @@
     #footer {
       font-size: 0.9rem;
       color: #888;
-      margin-top: 20px;
+      margin-top: 10px;
       text-align: center;
     }
     #instructions {
@@ -110,10 +110,6 @@
       border-radius: 12px;
       max-width: 300px;
       border: 1px solid #444;
-    }
-    #instructions h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
     }
     .legend-box {
       display: flex;
@@ -149,17 +145,17 @@
     <div id="left-side">
       <div id="board"></div>
       <div id="keyboard"></div>
-      <div id="message"></div>
       <div id="footer">Designed by Country.</div>
+      <div id="message"></div>
     </div>
 
     <div id="instructions">
       <h3>How to Play</h3>
-      <p>Guess the 5-letter boat word in 6 tries. After each guess, the tile colors will give you clues:</p>
-      <div class="legend-box"><span class="legend-color green"></span> Correct letter in the correct spot</div>
-      <div class="legend-box"><span class="legend-color yellow"></span> Correct letter in the wrong spot</div>
-      <div class="legend-box"><span class="legend-color blue"></span> Vowel not in the word</div>
-      <div class="legend-box"><span class="legend-color gray"></span> Letter not in the word</div>
+      <p>Guess the 5-letter boat word in 6 tries. The colors will tell you how close you are:</p>
+      <div class="legend-box"><span class="legend-color green"></span> Correct letter & correct spot</div>
+      <div class="legend-box"><span class="legend-color yellow"></span> Correct letter, wrong spot</div>
+      <div class="legend-box"><span class="legend-color blue"></span> Vowel, not in the word</div>
+      <div class="legend-box"><span class="legend-color gray"></span> Not in the word</div>
     </div>
   </div>
 
@@ -173,7 +169,6 @@
       "scull","seats","shaft","shank","shoal","shove","skiff","sloop","solar","sound","spins","speed",
       "stern","stirs","storm","swept","swash","tanks","tides","towel","traps","vapor","vessel","watch",
       "water","waves","winds","yacht"];
-
     const word = words[Math.floor(Math.random() * words.length)];
     const board = document.getElementById("board");
     const keyboard = document.getElementById("keyboard");

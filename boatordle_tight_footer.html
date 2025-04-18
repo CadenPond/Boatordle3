@@ -1,0 +1,37 @@
+
+<!-- Only the placement of #footer is relevant here, rest of the logic remains unchanged -->
+<!-- We use inline styles or CSS class to reduce spacing between keyboard and footer -->
+
+<style>
+  #footer {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 5px;
+    text-align: center;
+  }
+</style>
+
+<body>
+  <header>
+    <h1>Boatordle</h1>
+    <p><em>Boatordle: The ultimate word game for sea brains.</em></p>
+  </header>
+
+  <div id="game-container">
+    <div id="left-side">
+      <div id="board"></div>
+      <div id="keyboard"></div>
+      <div id="footer">Designed by Country.</div>
+      <div id="message"></div>
+    </div>
+
+    <div id="instructions">
+      <h3>How to Play</h3>
+      <p>Guess the 5-letter boat word in 6 tries. Tile colors give you clues:</p>
+      <div class="legend-box"><span class="legend-color green"></span> Correct letter in the correct spot</div>
+      <div class="legend-box"><span class="legend-color yellow"></span> Letter is in the word but in the wrong spot</div>
+      <div class="legend-box"><span class="legend-color blue"></span> Vowel not in the word</div>
+      <div class="legend-box"><span class="legend-color gray"></span> Letter not in the word</div>
+    </div>
+  </div>
+</body>
